@@ -1,0 +1,20 @@
+GET /channelsLink/post.do HTTP/1.1
+Host: inss.cgbchina.com.cn
+Cookie: chtk=0407b404905e46fe8d6ae18944129b28; chtk.sig=RTaaQHpFPI7sV1dRmJEY1hvZ9_M; ec=RWWbPrfZ-1742278181254-19a0ae42b47bd173404444; _efmdata=nfbPsgunvT1U07Gm92A6f9mSH0V0Y9sdV7xQmsaXhhwnK5WrbOQMwOr2t8jY4i9%2BSxoZ1QKSIPK4pCK99oGxYw%3D%3D; _exid=9YxM3C3O1gEc5ri170%2F8Dqunj9GaF5G46sNo6RAplOM%3D; JSESSIONID=0000gRp9ut8CR7lYYfgxVoihoa5:1atr13aa5
+Pragma: no-cache
+Cache-Control: no-cache
+Sec-Ch-Ua: "Chromium";v="134", "Not:A-Brand";v="24", "Google Chrome";v="134"
+Sec-Ch-Ua-Mobile: ?0
+Sec-Ch-Ua-Platform: "Windows"
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Sec-Fetch-Site: none
+Sec-Fetch-Mode: navigate
+Sec-Fetch-User: ?1
+Sec-Fetch-Dest: document
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8,zh-TW;q=0.7,pt;q=0.6
+Priority: u=0, i
+Connection: keep-alive
+
