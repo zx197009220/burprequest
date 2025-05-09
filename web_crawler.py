@@ -4,17 +4,17 @@ import json
 import re
 import time
 from urllib.parse import urljoin,urlparse
-from log import logger
+from log import setup_logger
 import httpx
 from urllib3.util.retry import Retry
 from httpx import RemoteProtocolError, ConnectError, ReadTimeout
-from link_extractor import parse_links,param_dict
+from link_extractor import parse_links
 from messageparse import message
-from config import crawler_MaxDepth,crawler_Proxies,regex_RemoveUrlContext,crawler_MaxRetries
+from config import crawler_MaxDepth,crawler_Proxies,crawler_MaxRetries
 from session_parse import getcookie
 
 
-
+loggerRequest = setup_logger('requestlog', 'requestlog.log')
 # 去除url上下文
 re_remove_url_context = re.compile(r"(https?://[^/]+)/[^/]+(/.*)")
 # re_remove_url_context = re.compile(regex_RemoveUrlContext)
@@ -36,15 +36,15 @@ async def network_request(request_queue, process_queue,method="get"):
         body = data
 
     timeout_config = httpx.Timeout(
-        connect=5.0,  # 连接超时 5s
+        connect=10.0,  # 连接超时 5s
         read=60.0,  # 读取超时 60s（根据文件大小调整）
         write=10.0,  # 发送超时 10s
-        pool=15.0  # 连接池等待 15s
+        pool=20.0  # 连接池等待 15s
     )
     # 创建一个重试策略
     retries = Retry(
         total=3,  # 最大重试次数
-        backoff_factor=1,  # 重试间隔（秒）
+        backoff_factor=2,  # 重试间隔（秒）
         status_forcelist=[429, 500, 502, 503, 504],  # 需要重试的状态码
         allowed_methods=["GET", "POST"],  # 允许重试的 HTTP 方法
     )
@@ -80,17 +80,17 @@ async def network_request(request_queue, process_queue,method="get"):
                     response = await client.request(method, url, headers=headers, json=body)
                 # if 200 != response.status_code:
                 #     print(f"【{response.status_code}】【{depth}】【{urlFuzz}】: {url}")
-                logger.info(f"【{response.status_code}】【{depth}】【{urlFuzz}】: {url}")
+                loggerRequest.info(f"【{response.status_code}】【{depth}】【{urlFuzz}】: {url}")
                 await process_queue.put((response.text,url,depth))  # 存放(url, response_content)
             except RemoteProtocolError as rpe:
-                print(f"【服务器协议中断】：{rpe} {url}")  # 如连接被服务器主动关闭
+                loggerRequest.info(f"【服务器协议中断】：{rpe} {url}")  # 如连接被服务器主动关闭
             except ConnectError as ce:
-                print(f"【网络层异常】：{ce} {url}")  # 涵盖防火墙、DNS等问题
+                loggerRequest.info(f"【网络层异常】：{ce} {url}")  # 涵盖防火墙、DNS等问题
             except ReadTimeout as ce:
 
-                print(f"【连接层异常】：{ce} {url}")  # 如服务器主动断开、防火墙拦截等（网页6）
+                loggerRequest.info(f"【连接层异常】：{ce} {url}")  # 如服务器主动断开、防火墙拦截等（网页6）
             except Exception as e:
-                print(f"【其他异常：】【{e}】{url}")
+                loggerRequest.info(f"【其他异常：】【{e}】{url}")
             finally:
                 request_queue.task_done()
 

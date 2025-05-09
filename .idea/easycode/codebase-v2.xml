@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/burpxmlparse.py;D:/poc/python/burprequest/config.py;D:/poc/python/burprequest/demo.py;D:/poc/python/burprequest/link_extractor.py;D:/poc/python/burprequest/log.py;D:/poc/python/burprequest/messageparse.py;D:/poc/python/burprequest/session_parse.py;D:/poc/python/burprequest/web_crawler.py" />
+  </component>
+</project>
